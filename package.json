@@ -5,17 +5,17 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "husky": "^9.0.0",
+    "husky": "^8.0.3",
     "lint-staged": "^15.0.0"
   },
   "lint-staged": {
     "frontend/src/**/*.{ts,tsx}": [
-      "cd frontend && npm run lint",
-      "cd frontend && npm run format"
+      "npm --prefix frontend run lint",
+      "npm --prefix frontend run format"
     ],
     "backend/src/**/*.ts": [
-      "cd backend && npm run lint",
-      "cd backend && npm run format"
+      "npm --prefix backend run lint",
+      "npm --prefix backend run format"
     ]
   }
 }

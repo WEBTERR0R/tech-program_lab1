@@ -1,4 +1,26 @@
+import React, { useState, useEffect } from 'react';
+import type { Task } from './types/Task';
+import { taskApi } from './services/api';
+import './App.css';
 
+function App() {
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [newTask, setNewTask] = useState({ title: '', description: '' });
+
+  useEffect(() => {
+    loadTasks();
+  }, []);
+
+  const loadTasks = async () => {
+    setLoading(true);
+    try {
+      const response = await taskApi.getAllTasks();
+      if (response.success && response.data) {
+        setTasks(response.data);
+      }
+    } catch {
       setError('Failed to load tasks');
     } finally {
       setLoading(false);
