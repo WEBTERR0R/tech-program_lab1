@@ -1,0 +1,24 @@
+#!/bin/sh
+
+echo "🔍 Running pre-commit checks..."
+
+# Проверка backend
+cd backend
+npm run lint
+BACKEND_LINT=$?
+cd ..
+
+# Проверка frontend
+cd frontend
+npm run lint
+FRONTEND_LINT=$?
+cd ..
+
+# Если есть ошибки — отменяем коммит
+if [ $BACKEND_LINT -ne 0 ] || [ $FRONTEND_LINT -ne 0 ]; then
+    echo "❌ Pre-commit failed! Fix errors before committing."
+    exit 1
+fi
+
+echo "✅ All checks passed!"
+exit 0
